@@ -7,15 +7,21 @@ def f_rec(h, fr, to, aux):
 
 def f_it(h):
     moves = []
+    # Initialize stacks
     A = list(range(1, h + 1))
     B = []
     C = []
     i = 0
     while len(C) < h:
-        if i % 3 == 0:
+        # Finding: given two stacks x and y, only one move (either x -> y or y -> x) is possible, but not both
+        # Algorithm:
+        #     Step 1: move between A and C, Step 2: move between A and B, Step 3: move between B and C (if h is uneven)
+        #             move between A and B, Step 2: move between A and C, Step 3: move between B and C (if h is even)
+        #     Repeat until stack C is full
+        if (h % 2 == 1 and i % 3 == 0) or (h % 2 == 0 and i % 3 == 1):
             fr_list, fr_stack = A, 'A'
             to_list, to_stack = C, 'C'
-        elif i % 3 == 1:
+        elif (h % 2 == 1 and i % 3 == 1) or (h % 2 == 0 and i % 3 == 0):
             fr_list, fr_stack = A, 'A'
             to_list, to_stack = B, 'B'
         else:
